@@ -2,7 +2,7 @@
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
-        int n = nums.size(), ans = n;
+        int n = nums.size(), ans = n; //ans存储数组中与val不相等的元素个数，左/右指针有一个相等的就减1
         int right = n-1;
         //数组为空，避免越界访问
         if(right < 0){
@@ -28,5 +28,23 @@ public:
             }
         }
         return ans;
+    }
+};
+
+
+//官方同思路双指针，但是凭借while循环和初始值的设置让代码更加简洁，时空相同
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int left = 0, right = nums.size();
+        while(left < right){
+            if(nums[left] == val){ //左指针相同用右指针替换，更新右指针，左指针可能还等于val而不变
+                nums[left] = nums[right - 1];
+                right--;
+            }else{ //左指针不等于val，保留，左指针左移
+                left++;
+            }
+        }
+        return left;
     }
 };
