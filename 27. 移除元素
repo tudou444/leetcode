@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int n = nums.size(), ans = n;
+        int right = n-1;
+        //数组为空，避免越界访问
+        if(right < 0){
+            return 0;
+        }
+        while(nums[right] == val){
+            ans--;
+            right--;
+            //数组中的值全为val,防止全部删除后访问越界
+            if(right < 0){
+                return 0;
+            }
+        }
+        for(int i = 0; i < right; i++){
+            if(nums[i] == val){
+                ans--;
+                nums[i] = nums[right];
+                right--;
+            }
+            while(nums[right] == val){
+                ans--;
+                right--;
+            }
+        }
+        return ans;
+    }
+};
