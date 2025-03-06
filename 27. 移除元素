@@ -17,12 +17,12 @@ public:
             }
         }
         for(int i = 0; i < right; i++){
-            if(nums[i] == val){
+            if(nums[i] == val){ //左指针等于val，删除后替换，更新右指针
                 ans--;
                 nums[i] = nums[right];
                 right--;
             }
-            while(nums[right] == val){
+            while(nums[right] == val){ //右指针等于val，删除，更新右指针
                 ans--;
                 right--;
             }
