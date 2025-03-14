@@ -1,0 +1,35 @@
+//时间O（nk）空间O（n） C++实现
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        queue<int> q;
+        for(int i = 1; i <=n; i++){
+            q.emplace(i); 
+        }
+        while(q.size() > 1){
+            for(int i = 1; i < k; i++){
+                q.emplace(q.front()); //队首元素加到队尾
+                q.pop(); //去除队首元素
+            }
+            q.pop(); //去除第k个元素
+        }
+        return q.front();
+    }
+};
+
+//Java实现，原理同上
+class Solution {
+    public int findTheWinner(int n, int k) {
+        Queue<Integer> queue = new ArrayDeque<Integer>();
+        for(int i = 1; i <=n; i++){
+            queue.offer(i); //offer()：添加元素到队尾。
+        }
+        while(queue.size() > 1){
+            for(int i = 1; i < k; i++){
+                queue.offer(queue.poll()); //poll()：移除并返回队首元素。
+            }
+            queue.poll();
+        }
+        return queue.peek(); //peek()：查看队首元素但不移除。
+    }
+}
