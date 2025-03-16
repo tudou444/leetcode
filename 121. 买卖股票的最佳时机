@@ -1,0 +1,13 @@
+//假设是今天卖出，然后求今天之前的历史最低点(在遍历得到今天的价格时已经记录)时间O（n）空间O（1）
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int pre = prices[0], ans = 0;
+        int n = prices.size();
+        for(int i = 1; i < n; i++){
+            ans = max(ans, prices[i]-pre);
+            pre = min(pre, prices[i]);
+        }
+        return ans;
+    }
+};
