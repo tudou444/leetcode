@@ -1,0 +1,22 @@
+//动态规划+滚动数组。时间O（n）空间O（1）
+class Solution {
+public:
+    int climbStairs(int n) {
+        int p = 1, q = 1, r = 2;
+        //当楼梯小于3时直接返回答案
+        if(n == 0){
+            return 1;
+        }else if(n == 1){
+            return 1;
+        }else if(n == 2){
+            return 2;
+        }
+        //楼梯大于3时利用滚动数组把空间复杂度降到O（1）
+        for(int i = 3; i <= n; i++){
+            p = q;
+            q = r;
+            r = p + q;
+        }
+        return r;
+    }
+};
