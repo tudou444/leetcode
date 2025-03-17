@@ -1,0 +1,15 @@
+//动态规划，ans[i]表示数字i要多少完全平方数的和
+class Solution {
+public:
+    int numSquares(int n) {
+        vector<int> ans(n+1);
+        for(int i = 1; i <= n; i++){
+            int minn = INT_MAX;
+            for(int j = 1; j*j <= i; j++){
+                minn = min(minn, ans[i - j*j]);
+            }
+            ans[i] = minn+1;
+        }
+        return ans[n];
+    }
+};
