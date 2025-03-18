@@ -1,0 +1,26 @@
+
+//错误解法
+//从大往小选择是错误的，比如amount=6，coins={2，5}，这个解法会选5导致返回-1，正确为返回3
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if(amount == 0){
+            return 0;
+        }
+        int n = coins.size(), ans = 0;
+        sort(coins.begin(), coins.end());
+        for(int i = n-1; i >= 0; i--){
+            if(amount >= coins[i]){
+                if(amount%coins[i] == 0){
+                    return ans+amount/coins[i];
+                }else{
+                    ans += amount/coins[i];
+                    amount -= amount/coins[i]*coins[i];
+                }
+            }else{
+                continue;
+            }
+        }
+        return -1;
+    }
+};
