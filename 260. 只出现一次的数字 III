@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        int xorsum = 0;
+        for(auto e : nums) xorsum ^= e; //a^b
+        int lsb = (xorsum == INT_MIN ? xorsum : xorsum & (-xorsum));
+        int xor2 = 0;
+        for(auto e : nums){
+            if(e & lsb){ //不能使用e & lsb == 0，因为==优先级高于&
+                xor2 ^= e; //a或者b
+            }
+        }
+        return {xor2, xorsum^xor2};
+    }
+};
