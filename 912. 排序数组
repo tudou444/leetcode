@@ -1,0 +1,32 @@
+//归并排序 时间O（nlogn）空间（n）
+class Solution {
+    vector<int> temp;
+    void mergeSort(vector<int>& nums, int left, int right){
+        if(left >= right) return;
+        int mid = (left + right) >> 1;
+        mergeSort(nums, left, mid);
+        mergeSort(nums, mid+1, right);
+        int p1 = left, p2 = mid + 1;
+        int cnt = 0; //用于给临时数组计数
+        while(p1 <= mid && p2 <= right){
+            temp[cnt++] = (nums[p1] <= nums[p2]) ? nums[p1++] : nums[p2++];
+        }
+        while(p1 <= mid){
+            temp[cnt++] = nums[p1++];
+        }
+        while(p2 <= right){
+            temp[cnt++] = nums[p2++];
+        }
+        for(int i = 0; i < right-left+1; i++){
+            nums[left + i] = temp[i];
+        }
+    }
+
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size();
+        temp.resize(n, 0);
+        mergeSort(nums, 0, n-1);
+        return nums;
+    }
+};
