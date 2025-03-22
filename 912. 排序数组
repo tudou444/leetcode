@@ -46,8 +46,8 @@ class Solution {
                 L++;
             }
         }
-        swap(nums[R], nums[more]);
-        return {less+1, more};
+        swap(nums[R], nums[more]); //这一步交换使得more指向了pivot
+        return {less+1, more}; //等于pivot的数字部分的左边第一个和右边第一个
     }
     void quickSort(vector<int>& nums, int L, int R){
         if(L < R){
