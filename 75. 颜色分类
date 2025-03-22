@@ -1,0 +1,48 @@
+//直接计数，时间O（n），空间O（1）
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int n = nums.size();
+        int oneCnt = 0, zeroCnt = 0, twoCnt =  0;
+        for(auto a : nums){
+            if(a == 0){
+                zeroCnt++;
+            }else if(a == 1){
+                oneCnt++;
+            }else{
+                twoCnt++;
+            }
+        }
+        for(int i = 0; i < n; i++){
+            if(zeroCnt > 0){
+                nums[i] = 0;
+                zeroCnt--;
+            }else if(oneCnt > 0){
+                nums[i] = 1;
+                oneCnt--;
+            }else{
+                nums[i] = 2;
+            }
+        }
+    }
+};
+
+//partition方法，比pivot小的放左边，大的放右边，更新排序完成的区域。时间O（n）空间O（1）
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int n = nums.size();
+        int left = 0;
+        int less = left - 1, more = n;
+        while(left < more){
+            if(nums[left] < 1){
+                swap(nums[left], nums[++less]);
+                left++;
+            }else if(nums[left] > 1){
+                swap(nums[left], nums[--more]);
+            }else{
+                left++;
+            }
+        }
+    }
+};
