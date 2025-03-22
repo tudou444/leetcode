@@ -30,3 +30,39 @@ public:
         return nums;
     }
 };
+
+
+//快速排序
+class Solution {
+    vector<int> partition(vector<int>& nums, int L, int R){
+        int less = L - 1, more = R;
+        while(L < more){
+            if(nums[L] < nums[R]){
+                swap(nums[L], nums[++less]);
+                L++;
+            }else if(nums[L] > nums[R]){
+                swap(nums[L], nums[--more]);
+            }else{
+                L++;
+            }
+        }
+        swap(nums[R], nums[more]);
+        return {less+1, more};
+    }
+    void quickSort(vector<int>& nums, int L, int R){
+        if(L < R){
+            int i = rand() % (R - L + 1) + L; //在（L，R）上随机选取一个位置
+            swap(nums[R], nums[i]);
+            vector<int> pos = partition(nums, L, R);
+            quickSort(nums, L, pos[0] - 1);
+            quickSort(nums, pos[1] + 1, R);
+        }
+    }
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size();
+        srand((unsigned)time(NULL));
+        quickSort(nums, 0, n-1);
+        return nums;
+    }
+};
