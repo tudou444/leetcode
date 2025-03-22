@@ -1,0 +1,33 @@
+//利用快速排序的partition找到等于pivot的位置，做比较后选择一侧递归，时间O（n）空间O（logn）
+class Solution {
+    int partition(vector<int>& nums, int L, int R, int k){
+        int less = L - 1, more = R;
+        int l = L, r = R;
+        while(L < more){
+            if(nums[L] < nums[R]){
+                swap(nums[L], nums[++less]);
+                L++;
+            }else if(nums[L] > nums[R]){
+                swap(nums[L], nums[--more]);
+            }else{
+                L++;
+            }
+        }
+        swap(nums[R], nums[more]); //这一步交换使得more指向了pivot
+        if(less+1 <= k && more >= k){
+            return nums[k];
+        }else if(less+1 > k){
+            return partition(nums, l, less, k);
+        }else{
+            return partition(nums, more+1, r, k);
+        }
+    }
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size();
+        srand((unsigned)time(NULL));
+        int i = rand() % n;
+        swap(nums[n-1], nums[i]); //保证最初处在数组最后的pivot元素的随机性
+        return partition(nums, 0, n-1, n-k);
+    }
+};
