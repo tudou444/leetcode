@@ -77,6 +77,7 @@ class Solution {
         }
     }
     //向下调整，堆末尾元素换到堆顶进行调整
+    //时间O（logn）
     void heapify(vector<int>& nums, int index, int heapSize){
         int left = index * 2 + 1;
         while(left < heapSize){
@@ -85,8 +86,8 @@ class Solution {
             largest = nums[largest] > nums[index] ? largest : index;
             if(largest == index) break;
             swap(nums[largest], nums[index]);
-            index = largest; //跟踪这个较大的节点
-            left = index * 2 + 1; //较大节点的左孩子
+            index = largest; //刚刚交换下来的节点,是较小的
+            left = index * 2 + 1; //继续和孩子比较向下交换
         }
     }
     void heapSort(vector<int>& nums){
@@ -95,7 +96,7 @@ class Solution {
         for(int i = 0; i < heapSize; i++) heapInsert(nums, i); //建堆
         swap(nums[0], nums[--heapSize]);
         while(heapSize > 0){
-            heapify(nums, 0, heapSize); //O(longn)
+            heapify(nums, 0, heapSize); //O(logn)
             swap(nums[0], nums[--heapSize]);
         }
     }
