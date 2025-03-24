@@ -1,4 +1,4 @@
-//基础，是用了pre、cur、next三个指针
+//基础，是用了pre、cur、next三个指针,时间O（n）空间O（1）
 /**
  * Definition for singly-linked list.
  * struct ListNode {
