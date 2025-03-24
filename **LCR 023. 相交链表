@@ -1,0 +1,22 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* hA = headA;
+        ListNode* hB = headB;
+        while(hA != hB){
+            //如果为空去另一个链表的头部，hA,hB已经改变不能用
+            // 每次判断当前点是否为空的好处是：避免A B无公共部分，再走完A+B和B+A后，会在nullptr处相遇
+            hA = hA == nullptr ? headB : hA -> next; 
+            hB = hB == nullptr ? headA : hB -> next;
+        }
+        return hA;
+    }
+};
