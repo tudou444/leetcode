@@ -29,3 +29,44 @@ public:
         return true;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ //快慢指针，链表反转，时间O（n）空间O（1）
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode *slow = head, *fast = head;
+        //将slow指向链表中间节点，中间两个则指向左边的
+        while(fast->next != nullptr && fast->next->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        //反转后半部分链表,pre指向反转后的头节点
+        ListNode* cur = slow->next, *pre = nullptr;
+        while(cur != nullptr){
+            ListNode *next = cur->next;
+            cur -> next = pre;
+            pre = cur;
+            cur = next;
+        }
+        cur = pre; //用于后续将后半链表反转回来
+        slow = head;
+        while(slow != nullptr && pre != nullptr){
+            if(slow->val != pre->val){
+                return false;
+            }
+            slow = slow->next;
+            pre = pre->next;
+        }
+        return true;
+    }
+};
