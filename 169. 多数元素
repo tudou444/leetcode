@@ -1,0 +1,17 @@
+//简单的哈希表练习，比较水
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int, int> map;
+        int n = nums.size();
+        for(auto& e : nums){
+            map[e]++;
+        }
+        for(auto& pair : map){
+            if(pair.second > n/2){
+                return pair.first;
+            }
+        }
+        return -1;
+    }
+};
