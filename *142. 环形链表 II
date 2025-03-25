@@ -1,0 +1,21 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ //利用哈希表，可以快速通过。时间O（n）空间O（n）
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode* cur = head;
+        unordered_set<ListNode*> set;
+        while(cur != nullptr && set.find(cur) == set.end()){
+            set.emplace(cur);
+            cur = cur->next;
+        }
+        return cur;
+    }
+};
