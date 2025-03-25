@@ -21,3 +21,48 @@ public:
         return hA;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+//记录数组长度，让长的先走，同时到达第一个相交节点。时间O（N）空间O（1）
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA == nullptr || headB == nullptr){
+            return nullptr;
+        }
+        ListNode* pA = headA;
+        ListNode* pB = headB;
+        int n = 0;
+        while(pA->next != nullptr){
+            n++;
+            pA = pA->next;
+        }
+        while(pB->next != nullptr){
+            n--;
+            pB = pB->next;
+        }
+        if(pA != pB){
+            return nullptr;
+        }else{
+            pA = n > 0 ? headA : headB; //谁长谁是pA
+            pB = pA == headA ? headB : headA;
+            n = abs(n);
+            while(n != 0){
+                n--;
+                pA = pA->next;
+            }
+            while(pA != pB){
+                pA = pA->next;
+                pB = pB->next;
+            }
+        }
+        return pA;
+    }
+};
