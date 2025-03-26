@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        vector<int> temp(m+n);
+        int p1 = 0, p2 =0;
+        int cnt = 0; //用于给临时数组计数
+        while(p1 < m && p2 < n){
+            temp[cnt++] = (nums1[p1] <= nums2[p2]) ? nums1[p1++] : nums2[p2++];
+        }
+        while(p1 < m){
+            temp[cnt++] = nums1[p1++];
+        }
+        while(p2 < n){
+            temp[cnt++] = nums2[p2++];
+        }
+        for(int i = 0; i < m+n; i++){
+            nums1[i] = temp[i];
+        }
+    }
+};
