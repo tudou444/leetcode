@@ -19,3 +19,43 @@ public:
         return cur;
     }
 };
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ //快慢指针第一次相遇后快指针回到头部，一次走一步再一次相遇就是答案，记住
+ //回到头部时要检验头部是否是第一次相遇节点，如果是直接返回
+ //时间O（n）空间O（1）
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode *slow = head, *fast = head;
+        int flag = 0; //表示快慢指针是否已经相遇
+        while(fast != nullptr && fast->next != nullptr){
+            slow = slow->next;
+            if(flag == 0){
+                fast = fast->next->next;
+            }else{
+                fast = fast->next; //相遇后快指针也一次走一步
+            }
+            if(slow == fast){
+                if(flag == 0){
+                    slow = head;
+                    if(slow == fast){ //相遇节点正好在头部，避免再走一步而使得答案错误
+                        return slow;
+                    }
+                    flag = 1;;
+                }else{
+                    return slow;
+                }
+            }
+        }
+        return nullptr;
+    }
+};
