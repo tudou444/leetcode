@@ -1,0 +1,19 @@
+//时间O（n）空间O（1）
+class Solution {
+public:
+    int temp;
+    void reverse(vector<int>& nums, int left, int right){
+        for(int i = 0; i < (right-left+1)>>1; i++){ //右移一位是除以2！
+            temp = nums[left+i];
+            nums[left+i] = nums[right-i];
+            nums[right-i] = temp;
+        }
+    }
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k %= n; //右移的位数不能超过数组长度！
+        reverse(nums, 0, n-k-1);
+        reverse(nums, n-k, n-1);
+        reverse(nums, 0, n-1);
+    }
+};
