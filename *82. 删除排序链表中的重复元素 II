@@ -27,3 +27,37 @@ public:
         return dummy->next;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ //利用头结点，时间O（n）空间O（1），安全性拉满解法
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* dummy = new ListNode(0, head); //头节点
+        ListNode* cur = dummy;
+        while(cur->next && cur->next->next){
+            if(cur->next->val != cur->next->next->val){ //可以保留下一个结点
+                cur = cur->next;
+            }else{
+                int x = cur->next->val;
+                while(cur->next && cur->next->val == x){
+                    ListNode *q = cur->next;  //要被删除的结点
+                    cur->next = cur->next->next;
+                    delete q;
+                }
+            }
+        }
+        ListNode* result = dummy->next;
+        delete dummy; // 最后释放dummy节点
+        return result;
+    }
+};
