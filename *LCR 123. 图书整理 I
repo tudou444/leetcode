@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+//借助栈完成，时间O（n）空间O（n）
+class Solution {
+public:
+    vector<int> reverseBookList(ListNode* head) {
+        stack<int> s;
+        vector<int> ans;
+        ListNode* cur = head;
+        while(cur){
+            s.push(cur->val);
+            cur = cur->next;
+        }
+        while(!s.empty()){
+            ans.emplace_back(s.top());
+            s.pop();
+        }
+        return ans;
+    }
+};
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ //简单的递归，利用栈可改写为迭代写法，时间O（n）空间O（n）
+class Solution {
+private:
+    vector<int> ans;
+    void recur(ListNode* head){
+        if(!head) return;
+        recur(head->next);
+        ans.emplace_back(head->val);
+    }
+
+public:
+    vector<int> reverseBookList(ListNode* head) {
+        recur(head);
+        return ans;
+    }
+};
