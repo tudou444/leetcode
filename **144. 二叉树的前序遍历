@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+ //二叉树的前序遍历（递归写法）,时间O（n）空间O（n）是递归栈的开销
+class Solution {
+private:
+    vector<int> ans;
+    void preOrderRecur(TreeNode* head){
+        if(head == NULL) return;
+        ans.emplace_back(head->val);
+        preOrderRecur(head->left);
+        preOrderRecur(head->right);
+    }
+
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        preOrderRecur(root);
+        return ans;
+    }
+};
+//迭代写法，需要用到辅助栈，入栈顺序根,右左,出栈根，左右，时间O（n）空间O（n）
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> s;
+        if(root){
+            s.push(root);
+            while(!s.empty()){
+                TreeNode* cur = s.top();  //将工作指针更新为栈顶指针！！！
+                s.pop();
+                ans.emplace_back(cur->val);
+                if(cur->right) s.push(cur->right);
+                if(cur->left) s.push(cur->left);
+            }
+        }
+        return ans;
+    }
+};
