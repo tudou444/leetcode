@@ -26,3 +26,29 @@ public:
         return ans;
     }
 };
+
+//迭代法后序遍历，使用两个辅助栈，inStackr入栈顺序为根、左右，outStack入栈为根、右左
+//最终出栈顺序为左右根即后序遍历，时间O（n）空间O（n）
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> inStack, outStack;
+        TreeNode* cur = root;
+        if(root){
+            inStack.push(root);
+            while(!inStack.empty()){
+                cur = inStack.top();
+                inStack.pop();
+                outStack.push(cur);
+                if(cur->left) inStack.push(cur->left);
+                if(cur->right) inStack.push(cur->right);
+            }
+        }
+        while(!outStack.empty()){
+            ans.emplace_back(outStack.top()->val);
+            outStack.pop();
+        }
+        return ans;
+    }
+};
