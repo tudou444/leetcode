@@ -46,3 +46,22 @@ public:
         }
     }
 };
+
+
+//王道写法，使用switch语句，时间O（n）空间O（1）
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int n = nums.size();
+        int left = 0, right = n-1;
+        int p = 0;
+        while(p <= right){
+            switch(nums[p]){
+                case 0: swap(nums[left], nums[p]); left++; p++; break;
+                case 1: p++; break;
+                case 2: swap(nums[right], nums[p]); right--; break;
+                default: break;
+            }
+        }
+    }
+};
