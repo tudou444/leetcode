@@ -69,6 +69,41 @@ public:
         return nums;
     }
 };
+class Solution {
+public:
+    vector<int> partition(vector<int>& nums, int left, int right){ //nums[right]存储pivot
+        int less = left-1, more = right, p = left;
+        while(p < more){ //工作指针不会与大于pivot的部分相撞，相撞意味着结束。
+            if(nums[p] < nums[right]){
+                swap(nums[p], nums[++less]);
+                p++;
+            }else if(nums[p] > nums[right]){
+                swap(nums[p], nums[--more]);
+            }else{
+                p++;
+            }
+        }
+        swap(nums[right], nums[more]); //这一步交换使得more指向了pivot
+        return {less+1, more}; //获取等于pivot的左右边界
+    }
+
+    void quickSort(vector<int>& nums, int left, int right){
+        if(left < right){ //条件判断排序部分是否合理
+            int i = rand()%(right-left+1) + left; //随机选取枢轴元素
+            swap(nums[i], nums[right]);
+            vector<int> pos = partition(nums, left, right); //获取到下次划分左右边界
+            quickSort(nums, left, pos[0]-1);
+            quickSort(nums, pos[1]+1, right);
+        }
+    }
+
+    vector<int> sortArray(vector<int>& nums) {
+        int n = nums.size();
+        srand((unsigned)time(NULL)); //时间随机函数
+        quickSort(nums, 0, n-1);
+        return nums;
+    }
+};
 
 //堆排序，时间O（nlogn）空间O（1）
 class Solution {
