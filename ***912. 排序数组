@@ -35,7 +35,7 @@ public:
 };
 
 
-//快速排序
+//快速排序 时间O（nlogn）空间O（nlogn）
 class Solution {
     vector<int> partition(vector<int>& nums, int L, int R){
         int less = L - 1, more = R;
